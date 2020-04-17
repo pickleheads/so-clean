@@ -12,12 +12,12 @@ async function run() {
     pull_number: 9,
   });
   const ref = pullRequest.head.ref;
-  const { response } = await octokit.checks.listForRef({
+  const response = await octokit.checks.listForRef({
     owner,
     repo,
     ref,
   });
-  console.log({ data: JSON.stringify(response, null, 2) });
+  console.log({ response: JSON.stringify(response, null, 2) });
 }
 
 run().catch((error) => core.setFailed(error.message));
