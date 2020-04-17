@@ -4,7 +4,7 @@ const github = require('@actions/github');
 async function run() {
   const myToken = core.getInput('githubToken');
   const octokit = new github.GitHub(myToken);
-  const response = await octokit.pulls.get({
+  const { data } = await octokit.pulls.get({
     owner: 'pickleheads',
     repo: 'cookbook',
     pull_number: 9,
@@ -14,7 +14,7 @@ async function run() {
   //   repo,
   //   ref,
   // });
-  console.log({ response });
+  console.log({ data: JSON.stringify(data) });
 }
 
 run().catch((error) => core.setFailed(error.message));
