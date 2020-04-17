@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -12,12 +13,16 @@ async function run() {
     pull_number: 9,
   });
   const ref = pullRequest.head.ref;
-  const response = await octokit.checks.listForRef({
+  const { data: pullRequestChecks } = await octokit.checks.listForRef({
     owner,
     repo,
     ref,
   });
-  console.log({ response: JSON.stringify(response, null, 2) });
+  const wereChecksSuccessful = _.every(pullRequestChecks.check_runs, {
+    conclusion: 'status',
+  });
+  const shouldPostGif = wereChecksSuccessful;
+  console.log({ shouldPostGif });
 }
 
 run().catch((error) => core.setFailed(error.message));
