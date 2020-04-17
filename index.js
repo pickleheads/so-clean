@@ -5,6 +5,7 @@ const github = require('@actions/github');
 async function run() {
   const myToken = core.getInput('githubToken');
   const octokit = new github.GitHub(myToken);
+  console.log(core.getInput('githubRepo'));
   const owner = 'pickleheads';
   const repo = 'cookbook';
   const { data: pullRequest } = await octokit.pulls.get({
