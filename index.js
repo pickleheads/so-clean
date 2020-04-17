@@ -7,11 +7,13 @@ async function run() {
   const { data: pullRequest } = await octokit.pulls.get({
     owner: 'pickleheads',
     repo: 'cookbook',
-    pull_number: 9,
-    mediaType: {
-      format: 'diff',
-    },
+    pull_number: 9
   });
+  // const response = await octokit.checks.listForRef({
+  //   owner,
+  //   repo,
+  //   ref,
+  // });
   console.log(pullRequest);
 }
 
