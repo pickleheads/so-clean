@@ -15,4 +15,4 @@ async function run() {
   console.log(pullRequest);
 }
 
-run();
+run().catch((error) => core.setFailed(error.message));
