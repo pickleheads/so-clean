@@ -14,7 +14,7 @@ async function run() {
   //   repo,
   //   ref,
   // });
-  console.log({ data: JSON.stringify(data) });
+  console.log({ data: JSON.stringify(data, null, 2) });
 }
 
 run().catch((error) => core.setFailed(error.message));
