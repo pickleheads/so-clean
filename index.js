@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function run() {
-  const myToken = core.getInput('github');
+  const myToken = core.getInput('githubToken');
   const octokit = new github.GitHub(myToken);
   const { data: pullRequest } = await octokit.pulls.get({
     owner: 'pickleheads',
