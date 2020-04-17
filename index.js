@@ -1,13 +1,18 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-try {
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}`);
-  const time = new Date().toTimeString();
-  core.setOutput('time', time);
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
+async function run() {
+  const myToken = core.getInput('github');
+  const octokit = new github.GitHub(myToken);
+  const { data: pullRequest } = await octokit.pulls.get({
+    owner: 'pickleheads',
+    repo: 'cookbook',
+    pull_number: 9,
+    mediaType: {
+      format: 'diff',
+    },
+  });
+  console.log(pullRequest);
 }
+
+run();
