@@ -1,0 +1,12 @@
+name: 'So clean'
+description: 'Leaves a fun photo on your PR when it is good to go'
+branding:
+  icon: 'git-pull-request'
+  color: 'green'
+inputs:
+  githubToken:
+    description: "This should be a token with access to your repository scoped in as a secret."
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'

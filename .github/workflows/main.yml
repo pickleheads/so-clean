@@ -1,0 +1,14 @@
+on: [pull_request]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Clean my PRs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clean the PR step
+        uses: ./
+        id: so-clean
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
