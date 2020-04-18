@@ -40,4 +40,7 @@ async function fetchMergeableStatus(octokit, owner, repo, pullRequestNumber) {
   return meregable;
 }
 
-action().catch((error) => core.setFailed(error.message));
+action().catch((error) => {
+  console.error(error)
+  core.setFailed(error.message)
+});
