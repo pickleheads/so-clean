@@ -14,7 +14,7 @@ async function action() {
   const repo = github.context.payload.repository.name;
   const pullRequestNumber = github.context.payload.pull_request.number;
   // TODO: Remove previous comment
-  const mergeable = await fetchMergeableStatus(octokit, owner, repo);
+  const mergeable = await fetchMergeableStatus(octokit, owner, repo, pullRequestNumber);
   if (mergeable) {
     await octokit.issues.createComment({
       owner,
