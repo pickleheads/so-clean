@@ -14,17 +14,17 @@ async function run() {
     pull_number: pullRequestNumber,
   });
   console.log(pullRequest)
-  // const ref = pullRequest.head.ref;
-  // const { data: pullRequestChecks } = await octokit.checks.listForRef({
-  //   owner,
-  //   repo,
-  //   ref,
-  // });
-  // const wereChecksSuccessful = _.every(pullRequestChecks.check_runs, {
-  //   conclusion: 'status',
-  // });
-  // const shouldPostGif = wereChecksSuccessful;
-  // console.log({ shouldPostGif });
+  const ref = pullRequest.head.ref;
+  const { data: pullRequestChecks } = await octokit.checks.listForRef({
+    owner,
+    repo,
+    ref,
+  });
+  const wereChecksSuccessful = _.every(pullRequestChecks.check_runs, {
+    conclusion: 'status',
+  });
+  const shouldPostGif = wereChecksSuccessful;
+  console.log({ shouldPostGif });
 }
 
 run().catch((error) => core.setFailed(error.message));
