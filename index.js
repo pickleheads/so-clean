@@ -13,7 +13,6 @@ async function run() {
     repo,
     pull_number: pullRequestNumber,
   });
-  console.log(pullRequest)
   const ref = pullRequest.head.ref;
   const { data: pullRequestChecks } = await octokit.checks.listForRef({
     owner,
@@ -24,7 +23,7 @@ async function run() {
     conclusion: 'status',
   });
   const shouldPostGif = wereChecksSuccessful;
-  console.log({ shouldPostGif });
+  console.log({ pullRequestChecks, shouldPostGif });
 }
 
 run().catch((error) => core.setFailed(error.message));
