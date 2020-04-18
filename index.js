@@ -14,20 +14,26 @@ async function action() {
   const repo = github.context.payload.repository.name;
   const pullRequestNumber = github.context.payload.pull_request.number;
   // TODO: Remove previous comment
-  const mergeable = await fetchMergeableStatus(
-    octokit,
+  const comments = await octokit.pulls.listComments({
     owner,
     repo,
-    pullRequestNumber
-  );
-  if (mergeable) {
-    await octokit.issues.createComment({
-      owner,
-      repo,
-      issue_number: pullRequestNumber,
-      body: `![So clean](${SO_CLEAN_IMAGE_URL})`,
-    });
-  }
+    pull_number: pullRequestNumber,
+  });
+  console.log(comments)
+  // const mergeable = await fetchMergeableStatus(
+  //   octokit,
+  //   owner,
+  //   repo,
+  //   pullRequestNumber
+  // );
+  // if (mergeable) {
+  //   await octokit.issues.createComment({
+  //     owner,
+  //     repo,
+  //     issue_number: pullRequestNumber,
+  //     body: `### Clean!\n![So clean](${SO_CLEAN_IMAGE_URL})`,
+  //   });
+  // }
 }
 
 async function fetchMergeableStatus(octokit, owner, repo, pullRequestNumber) {
