@@ -23,7 +23,7 @@ async function run() {
     conclusion: 'status',
   });
   const shouldPostGif = wereChecksSuccessful;
-  console.log(JSON.stringify({ pullRequestChecks, shouldPostGif }, null, 2));
+  console.log(JSON.stringify({ pullRequest: github.context.payload.pull_request, shouldPostGif }, null, 2));
 }
 
 run().catch((error) => core.setFailed(error.message));
