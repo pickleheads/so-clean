@@ -30,20 +30,20 @@ async function action() {
       comment_id: commentToDelete.id,
     });
   }
-  // const mergeable = await fetchMergeableStatus(
-  //   octokit,
-  //   owner,
-  //   repo,
-  //   pullRequestNumber
-  // );
-  // if (mergeable) {
-  //   await octokit.issues.createComment({
-  //     owner,
-  //     repo,
-  //     issue_number: pullRequestNumber,
-  //     body: SO_CLEAN_COMMENT_BODY,
-  //   });
-  // }
+  const mergeable = await fetchMergeableStatus(
+    octokit,
+    owner,
+    repo,
+    pullRequestNumber
+  );
+  if (mergeable) {
+    await octokit.issues.createComment({
+      owner,
+      repo,
+      issue_number: pullRequestNumber,
+      body: SO_CLEAN_COMMENT_BODY,
+    });
+  }
 }
 
 async function fetchMergeableStatus(octokit, owner, repo, pullRequestNumber) {
