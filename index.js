@@ -19,10 +19,11 @@ async function action() {
     repo,
     issue_number: pullRequestNumber,
   });
-  const commentToDelete = comments.find(
-    (comment) => comment.body === SO_CLEAN_COMMENT_BODY
+  const commentToDelete = comments.find((comment) =>
+    comment.body.includes(SO_CLEAN_IMAGE_URL)
   );
   if (commentToDelete) {
+    core.debug(`Deleting comment: ${commentToDelete.id}`);
     await octokit.issues.deleteComment({
       owner,
       repo,
