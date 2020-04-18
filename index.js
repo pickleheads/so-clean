@@ -6,13 +6,15 @@ async function run() {
   const myToken = core.getInput('githubToken');
   const octokit = new github.GitHub(myToken);
   console.log(github.context);
-  // const repo = github.context.payload.repository;
-  // const pullRequestNumber = github.context.payload.pull_request.number;
-  // const { data: pullRequest } = await octokit.pulls.get({
-  //   owner,
-  //   repo,
-  //   pull_number: pullRequestNumber,
-  // });
+  const owner = github.context.payload.organization.login;
+  const repo = github.context.payload.repository.name;
+  const pullRequestNumber = github.context.payload.pull_request.number;
+  const { data: pullRequest } = await octokit.pulls.get({
+    owner,
+    repo,
+    pull_number: pullRequestNumber,
+  });
+  console.log(pullRequest)
   // const ref = pullRequest.head.ref;
   // const { data: pullRequestChecks } = await octokit.checks.listForRef({
   //   owner,
