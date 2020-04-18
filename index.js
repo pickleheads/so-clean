@@ -14,10 +14,10 @@ async function action() {
   const repo = github.context.payload.repository.name;
   const pullRequestNumber = github.context.payload.pull_request.number;
   // TODO: Remove previous comment
-  const comments = await octokit.pulls.listComments({
+  const comments = await octokit.issues.listComments({
     owner,
     repo,
-    pull_number: pullRequestNumber,
+    issue_number: pullRequestNumber,
   });
   console.log(comments)
   // const mergeable = await fetchMergeableStatus(
