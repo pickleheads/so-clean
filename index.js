@@ -14,7 +14,12 @@ async function action() {
   const repo = github.context.payload.repository.name;
   const pullRequestNumber = github.context.payload.pull_request.number;
   // TODO: Remove previous comment
-  const mergeable = await fetchMergeableStatus(octokit, owner, repo, pullRequestNumber);
+  const mergeable = await fetchMergeableStatus(
+    octokit,
+    owner,
+    repo,
+    pullRequestNumber
+  );
   if (mergeable) {
     await octokit.issues.createComment({
       owner,
@@ -35,12 +40,12 @@ async function fetchMergeableStatus(octokit, owner, repo, pullRequestNumber) {
       pull_number: pullRequestNumber,
     });
     meregable = pullRequest.mergeable;
-    core.debug({ meregable });
+    core.debug(`meregable=${meregable}`);
   } while (meregable === null);
   return meregable;
 }
 
 action().catch((error) => {
-  console.error(error)
-  core.setFailed(error.message)
+  console.error(error);
+  core.setFailed(error.message);
 });
